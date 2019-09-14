@@ -38,7 +38,7 @@
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">N</h6>
-                        <small class="text-muted">N da Matriz</small>
+                        <small class="text-muted" id="saida">N da Matriz</small>
                     </div>
                     <input type="number" class="form-control" th:field="*{n}" placeholder="" value="" required>
                 </li>
@@ -51,16 +51,7 @@
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Sistema</h4>
-
-                <div class="row">
-                    <div class="col-md-2 mb-2">
-                        <label for="x2">x^2</label>
-                        <input type="number" step=".001" class="form-control" placeholder="" value="" required>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label for="x1">x^1</label>
-                        <input type="number" step=".001" class="form-control" placeholder="" value="" required>
-                    </div>
+                <div class="row" id="mathSystem">
                     <div class="col-md-2 mb-2">
                         <label for="x0">x^0</label>
                         <input type="number" step=".001" class="form-control" placeholder="" value="" required>
@@ -92,11 +83,17 @@
 <script th:src="@{/webjars/jquery/dist/jquery.min.js}" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script th:src="@{/webjars/popper.js/dist/popper.min.js}" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script th:src="@{/webjars/bootstrap/dist/js/bootstrap.min.js}" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script th:src="@{/webjars/d3/d3.min.js}" src="https://unpkg.com/d3@3/d3.min.js"></script>
-<script th:src="@{function-plot/dist/function-plot.js}" src="https://unpkg.com/function-plot@1/dist/function-plot.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
-
+        var n;
+        $('#n').on('input', function () {
+            n = $(this).val();
+            $('#mathSystem div:last').after('<div class="col-md-2 mb-2">\n' +
+                '                        <label for="x0">x^0</label>\n' +
+                '                        <input type="number" step=".001" class="form-control" placeholder="" value="" required>\n' +
+                '                    </div>');
+            $('#saida').text(n)
+        });
     /*]]>*/
 </script>
 </body>
