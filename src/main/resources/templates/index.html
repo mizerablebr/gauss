@@ -1,0 +1,103 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Projeto da disciplina Cálculo Numérico">
+    <meta name="author" content=" Bruno Nóbrega">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Cálculo Numérico - Eliminação de Gauss</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>Eliminação de Gauss</h2>
+        <p class="lead">Aplicação para disciplina de Cálculo Numérico</p>
+    </div>
+    <form class="needs-validation" th:action="@{/}" th:object="${sistema}" method="post">
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Variáveis</span>
+                <span class="badge badge-secondary badge-pill">1</span>
+            </h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">N</h6>
+                        <small class="text-muted">N da Matriz</small>
+                    </div>
+                    <input type="number" class="form-control" th:field="*{n}" placeholder="" value="" required>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Sistema</h4>
+
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <label for="x2">x^2</label>
+                        <input type="number" step=".001" class="form-control" placeholder="" value="" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="x1">x^1</label>
+                        <input type="number" step=".001" class="form-control" placeholder="" value="" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="x0">x^0</label>
+                        <input type="number" step=".001" class="form-control" placeholder="" value="" required>
+                    </div>
+                </div>
+
+
+                <hr class="mb-4">
+
+                <h4 class="mb-3">Resultados</h4>
+
+                <div class="d-block my-3">
+
+
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Calcule</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Cálculo Numérico - UNIFIL 2019</p>
+
+    </footer>
+</div>
+
+<script th:src="@{/webjars/jquery/dist/jquery.min.js}" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script th:src="@{/webjars/popper.js/dist/popper.min.js}" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.min.js}" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script th:src="@{/webjars/d3/d3.min.js}" src="https://unpkg.com/d3@3/d3.min.js"></script>
+<script th:src="@{function-plot/dist/function-plot.js}" src="https://unpkg.com/function-plot@1/dist/function-plot.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    /*]]>*/
+</script>
+</body>
+</html>
