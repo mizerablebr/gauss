@@ -15,7 +15,7 @@ public class MainController {
 
     @GetMapping
     public String getPage(Model model) {
-        model.addAttribute(SISTEMA, new MathSystem());
+        //model.addAttribute(SISTEMA, new MathSystem());
         return "index";
     }
 
