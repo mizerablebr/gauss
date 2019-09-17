@@ -22,14 +22,20 @@ public class MathSystemTest {
             Float[] m = new Float[n + 1];
             // Gera multiplicadores
             for (int i = k; i < n; i++) {
-                m[i] = matrix[i][0]/pivot;
+                m[i] = matrix[i][k-1]/pivot;
             }
             // Calcula elementos
-            //TODO: guardar matriz anterior antes da alteração
+
+            // Guarda matriz anterior
+            Float[][] previousMatrix = new Float[n][n+1];
+            for (int i = 0; i < n; i++) {
+                System.arraycopy(matrix[i], 0, previousMatrix[i], 0, previousMatrix[i].length);
+            }
+
             for (int i = k; i < n; i++) {
                 for (int j = 0; j < matrix[k].length; j++) {
-                    float a = matrix[i][j] -(m[i] * matrix[i-1][j]);
-                    matrix[k][j] = a;
+                    float a = previousMatrix[i][j] -(m[i] * previousMatrix[k-1][j]);
+                    matrix[i][j] = a;
                 }
             }
 
