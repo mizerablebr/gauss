@@ -2,9 +2,7 @@ package br.unifil.gauss;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MathSystemTest {
     @Test
@@ -43,10 +41,32 @@ public class MathSystemTest {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
 
-                System.out.print(matrix[i][j] + " ");
+                System.out.printf("%.4f ",matrix[i][j]);
             }
             System.out.println();
         }
 
+        // Calcular o X;
+
+        Float[] x = new Float[n];
+        Arrays.fill(x, 0f);
+        for (int i = n-1; i >=0; i--) {
+            x[i] = matrix[i][n];
+            for (int j = 0; j < x.length; j++) {
+                // Pega os outros X
+                if (j != i)
+                    x[i] = x[i] - matrix[i][j] * x[j];
+            }
+            x[i] = x[i] / matrix[i][i];
+        }
+
+        for (Float aFloat : x) {
+            if (aFloat < 0 && aFloat >-0.0001)
+                aFloat = 0f;
+            System.out.printf("%.4f ", aFloat);
+        }
+
     }
+
+
 }
