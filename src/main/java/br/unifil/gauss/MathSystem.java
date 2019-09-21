@@ -9,33 +9,19 @@ import java.util.regex.Pattern;
 public class MathSystem {
     private int n;
     private Float[][] matrix;
+    private String matrixString;
     private List<Float[][]> steps;
+    private Float[] x;
 
     public MathSystem(String typedEquation, int n) {
         setN(n);
-        typedEquation = "3x^3+2x^2+4x=1\n1x^3+1x^2+2x=2\n4x^3+3x^2-2x=3";
-        // Pega lista de números separados por linha
-        String[] lines = typedEquation.split("\n");
-        // Converte cada linha num array de float
-        Pattern multiplier = Pattern.compile("[+\\-]*\\d(?=[x|X])");
-        Pattern equality = Pattern.compile("(?<=\\=)\\d");
 
-        matrix = new Float[n][];
-        for (int i = 0; i < n; i++) {
-            Float[] line = new Float[n+1];
-            int index = 0;
-            Matcher matcher = multiplier.matcher(lines[i]);
-            while (matcher.find())
-                line[index++] = Float.valueOf(matcher.group());
-
-            matcher = equality.matcher(lines[i]);
-            matcher.find();
-            line[n] = Float.valueOf(matcher.group());
-            matrix[i] = line;
-        }
     }
 
-    public Float[] getX() {
+    public MathSystem() {
+    }
+
+    public Float[] calculateX() {
         for (int k = 1; k < n; k++) {
             // Determina o Pivô
             Float pivot = matrix[k-1][k-1];
@@ -76,7 +62,7 @@ public class MathSystem {
             x[i] = x[i] / matrix[i][i];
         }
 
-        return x;
+        return this.x = x;
     }
 
     public int getN() {
@@ -85,6 +71,9 @@ public class MathSystem {
 
     public void setN(int n) {
         this.n = n;
+        // Pega lista de números separados por linha
+        String[] lines = matrixString.split("\n");
+        updateMatrix(lines);
     }
 
     public Float[][] getMatrix() {
@@ -110,6 +99,25 @@ public class MathSystem {
         getSteps().add(step);
     }
 
+    public String getMatrixString() {
+        return matrixString;
+    }
+
+    public void setMatrixString(String matrixString) {
+        this.matrixString = matrixString;
+        // Pega lista de números separados por linha
+        String[] lines = this.matrixString.split("\n");
+        updateMatrix(lines);
+    }
+
+    public void setX(Float[] x) {
+        this.x = x;
+    }
+
+    public Float[] getX() {
+        return x;
+    }
+
     @Override
     public String toString() {
         return "MathSystem{" +
@@ -132,11 +140,30 @@ public class MathSystem {
 
     private static String printListOfFloatArrayBidimencional(List<Float[][]> lf) {
         StringBuilder sb = new StringBuilder();
-        int index = 0;
         lf.forEach(f -> {
             sb.append(printFloatArrayBidimencional(f));
             sb.append("\n");
         });
         return  sb.toString();
+    }
+
+    private void updateMatrix(String[] lines) {
+        Pattern multiplier = Pattern.compile("[+\\-]*\\d(?=[x|X])");
+        Pattern equality = Pattern.compile("(?<=\\=)\\d");
+
+        matrix = new Float[n][];
+        for (int i = 0; i < n; i++) {
+            Float[] line = new Float[n+1];
+            int index = 0;
+            Matcher matcher = multiplier.matcher(lines[i]);
+            while (matcher.find())
+                line[index++] = Float.valueOf(matcher.group());
+
+            matcher = equality.matcher(lines[i]);
+            matcher.find();
+            line[n] = Float.valueOf(matcher.group());
+            matrix[i] = line;
+        }
+        calculateX();
     }
 }

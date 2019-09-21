@@ -106,7 +106,7 @@ public class MathSystemTest {
     @Test
     public void mathSystemTest() {
         MathSystem ms = new MathSystem("3x^3+2x^2+4x=1\n1x^3+1x^2+2x=2\n4x^3+3x^2-2x=3", 3);
-        ms.getX();
+        ms.calculateX();
         System.out.println(ms);
     }
 }

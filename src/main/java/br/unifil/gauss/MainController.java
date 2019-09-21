@@ -15,13 +15,14 @@ public class MainController {
 
     @GetMapping
     public String getPage(Model model) {
-        //model.addAttribute(SISTEMA, new MathSystem());
+        model.addAttribute(SISTEMA, new MathSystem());
         return "index";
     }
 
     @PostMapping
     public String postPage(@ModelAttribute MathSystem equacao, Model model) {
         System.out.println(equacao);
+        model.addAttribute(SISTEMA, equacao);
         return "index";
     }
 
