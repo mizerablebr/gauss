@@ -149,7 +149,7 @@ public class MathSystem {
 
     private void updateMatrix(String[] lines) {
         Pattern multiplier = Pattern.compile("[+\\-]*\\d+(?=[x|X])");
-        Pattern equality = Pattern.compile("(?<=\\=)\\d+");
+        Pattern equality = Pattern.compile("(?<=\\=)[+\\-]*\\d+");
 
         matrix = new Float[n][];
         for (int i = 0; i < n; i++) {
