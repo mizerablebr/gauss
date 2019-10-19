@@ -12,6 +12,8 @@ public class MathSystem {
     private String matrixString;
     private List<Float[][]> steps;
     private Float[] x;
+    private Float[][] l;
+    private Float[][] u;
 
     public MathSystem(String typedEquation, int n) {
         setN(n);
@@ -22,6 +24,13 @@ public class MathSystem {
     }
 
     public Float[] calculateX() {
+        // Cria array L preenchida com zeros
+        l = new Float[n][n];
+        for (int i = 0; i < l.length; i++) {
+            Float[] lx = new Float[n];
+            Arrays.fill(lx, 0f);
+            l[i] = lx;
+        }
         for (int k = 1; k < n; k++) {
             // Determina o Pivô
             Float pivot = matrix[k-1][k-1];
@@ -29,6 +38,8 @@ public class MathSystem {
             // Gera multiplicadores
             for (int i = k; i < n; i++) {
                 m[i] = matrix[i][k-1]/pivot;
+                // Prenche L
+                l[k-1][i] = m[i];
             }
             // Calcula elementos
             // Guarda matriz anterior
