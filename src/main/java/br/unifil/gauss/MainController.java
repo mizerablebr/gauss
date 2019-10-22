@@ -23,6 +23,21 @@ public class MainController {
     public String postPage(@ModelAttribute MathSystem equacao, Model model) {
         System.out.println(equacao);
         model.addAttribute(SISTEMA, equacao);
+        // Multiplicando L * U
+        Float[][] resultadoMultiplicacao = new Float[equacao.getN()][equacao.getN()];
+        Float[][] l = equacao.getL();
+        Float[][] u = equacao.getU();
+
+        for (int i = 0; i < equacao.getN(); i++) {
+            for (int j = 0; j < equacao.getN(); j++) {
+                resultadoMultiplicacao[i][j] = 0f;
+                for (int k = 0; k < equacao.getN(); k++) {
+                    resultadoMultiplicacao[i][j] += l[i][k] * u[k][j];
+                }
+            }
+        }
+
+        model.addAttribute("resultadoMultiplicacao", resultadoMultiplicacao);
         return "index";
     }
 

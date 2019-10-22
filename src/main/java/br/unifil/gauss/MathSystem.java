@@ -24,13 +24,12 @@ public class MathSystem {
     }
 
     public Float[] calculateX() {
-        // Cria array L preenchida com zeros
+        // Cria array L e U preenchidas com zeros
         l = new Float[n][n];
-        for (int i = 0; i < l.length; i++) {
-            Float[] lx = new Float[n];
-            Arrays.fill(lx, 0f);
-            l[i] = lx;
-        }
+        u = new Float[n][n];
+        createMatrixOfZeros(l, true);
+        createMatrixOfZeros(u, false);
+
         for (int k = 1; k < n; k++) {
             // Determina o Pivô
             Float pivot = matrix[k-1][k-1];
@@ -39,7 +38,7 @@ public class MathSystem {
             for (int i = k; i < n; i++) {
                 m[i] = matrix[i][k-1]/pivot;
                 // Prenche L
-                l[k-1][i] = m[i];
+                l[i][k-1] = m[i];
             }
             // Calcula elementos
             // Guarda matriz anterior
@@ -56,6 +55,16 @@ public class MathSystem {
                 }
             }
 
+        }
+
+        // Calcular o U
+        for (int y = 0; y < matrix.length; y++) {
+            for (int x = 0; x < matrix[0].length -1; x++) {
+                if (x >= y) {
+                    // Faz parte da matriz superior
+                    u[y][x] = matrix[y][x];
+                }
+            }
         }
 
         // Calcular o X;
@@ -129,6 +138,22 @@ public class MathSystem {
         return x;
     }
 
+    public Float[][] getL() {
+        return l;
+    }
+
+    public void setL(Float[][] l) {
+        this.l = l;
+    }
+
+    public Float[][] getU() {
+        return u;
+    }
+
+    public void setU(Float[][] u) {
+        this.u = u;
+    }
+
     @Override
     public String toString() {
         return "MathSystem{" +
@@ -176,5 +201,32 @@ public class MathSystem {
             matrix[i] = line;
         }
         calculateX();
+    }
+
+    private void createMatrixOfZeros(Float[][] matrix, boolean diagonalUm) {
+        for (int i = 0; i < matrix.length; i++) {
+            Float[] lx = new Float[n];
+            Arrays.fill(lx, 0f);
+            matrix[i] = lx;
+        }
+        if (diagonalUm) {
+            for (int y = 0; y < matrix.length; y++) {
+                for (int x = 0; x < matrix[0].length; x++) {
+                    if (y == x)
+                        matrix[y][x] = 1f;
+                }
+            }
+        }
+    }
+
+    public Float getDeterminante() {
+        Float resultado = 1f;
+        for (int y = 0; y < matrix.length; y++) {
+            for (int x = 0; x < matrix[0].length; x++) {
+                if (y == x)
+                    resultado *= matrix[y][x];
+            }
+        }
+        return resultado;
     }
 }
